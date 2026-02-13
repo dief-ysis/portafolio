@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { m } from "motion/react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
+import Button from "@/components/ui/Button";
 import { personalInfo } from "@/data/personal";
 
 const contactLinks = [
@@ -10,8 +12,18 @@ const contactLinks = [
     label: "Email",
     href: `mailto:${personalInfo.email}`,
     icon: (
-      <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+      <svg
+        className="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={1.5}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+        />
       </svg>
     ),
     description: personalInfo.email,
@@ -38,31 +50,169 @@ const contactLinks = [
   },
 ];
 
+type FormStatus = "idle" | "sending" | "success" | "error";
+
 export default function Contact() {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("sending");
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "TU_API_KEY",
+          ...formData,
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 5000);
+      }
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
+    }
+  };
+
   return (
     <section id="contact" className="bg-card/30 py-20 px-6">
-      <div className="mx-auto max-w-4xl">
+      <div className="mx-auto max-w-5xl">
         <SectionHeading
           title="Contacto"
           subtitle="Estoy abierto a nuevas oportunidades y colaboraciones"
         />
 
-        <div className="grid gap-6 sm:grid-cols-3">
-          {contactLinks.map((link, i) => (
-            <AnimatedContainer key={link.label} delay={i * 0.1}>
-              <m.a
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel={link.href.startsWith("mailto") ? undefined : "noopener noreferrer"}
-                whileHover={{ y: -4 }}
-                className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-8 text-center transition-shadow hover:shadow-lg"
+        <div className="grid gap-12 lg:grid-cols-2">
+          {/* Contact form */}
+          <AnimatedContainer direction="left">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label
+                  htmlFor="name"
+                  className="mb-2 block text-sm font-medium"
+                >
+                  Nombre
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                  placeholder="Tu nombre"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block text-sm font-medium"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full rounded-xl border border-border bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                  placeholder="tu@email.com"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="message"
+                  className="mb-2 block text-sm font-medium"
+                >
+                  Mensaje
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows={5}
+                  className="w-full resize-none rounded-xl border border-border bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+                  placeholder="Escribe tu mensaje..."
+                />
+              </div>
+
+              <Button
+                onClick={() => {}}
+                className={`w-full ${status === "sending" ? "opacity-70" : ""}`}
               >
-                <div className="text-primary">{link.icon}</div>
-                <h3 className="font-semibold">{link.label}</h3>
-                <p className="text-sm text-muted">{link.description}</p>
-              </m.a>
-            </AnimatedContainer>
-          ))}
+                {status === "idle" && "Enviar mensaje"}
+                {status === "sending" && "Enviando..."}
+                {status === "success" && "Mensaje enviado!"}
+                {status === "error" && "Error, intenta de nuevo"}
+              </Button>
+
+              {status === "success" && (
+                <m.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center text-sm text-green-500"
+                >
+                  Gracias por tu mensaje! Te respondere pronto.
+                </m.p>
+              )}
+            </form>
+          </AnimatedContainer>
+
+          {/* Contact links */}
+          <div className="flex flex-col gap-4">
+            {contactLinks.map((link, i) => (
+              <AnimatedContainer key={link.label} delay={i * 0.1} direction="right">
+                <m.a
+                  href={link.href}
+                  target={
+                    link.href.startsWith("mailto") ? undefined : "_blank"
+                  }
+                  rel={
+                    link.href.startsWith("mailto")
+                      ? undefined
+                      : "noopener noreferrer"
+                  }
+                  whileHover={{ x: 4 }}
+                  className="flex items-center gap-4 rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-lg"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    {link.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{link.label}</h3>
+                    <p className="text-sm text-muted">{link.description}</p>
+                  </div>
+                </m.a>
+              </AnimatedContainer>
+            ))}
+          </div>
         </div>
       </div>
     </section>

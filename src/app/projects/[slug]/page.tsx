@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${project.title} | David Dev`,
       description: project.description,
       type: "article",
-      images: ["/og-image.svg"],
+      images: ["/images/projects/og-image.png"],
     },
   };
 }

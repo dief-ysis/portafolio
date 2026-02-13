@@ -2,7 +2,7 @@ import { TimelineItem } from "@/types";
 
 export const experience: TimelineItem[] = [
   {
-    date: "2024 - Presente",
+    date: "2026 - Presente",
     title: "Tercer Año - Ingenieria Informatica",
     subtitle: "Universidad",
     description:
@@ -10,7 +10,7 @@ export const experience: TimelineItem[] = [
     type: "education",
   },
   {
-    date: "2023 - 2024",
+    date: "2025",
     title: "Segundo Año - Ingenieria Informatica",
     subtitle: "Universidad",
     description:

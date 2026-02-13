@@ -17,10 +17,63 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://david-dev.vercel.app";
+
 export const metadata: Metadata = {
-  title: "David | Full Stack Developer",
+  title: {
+    default: "David | Full Stack Developer",
+    template: "%s | David Dev",
+  },
   description:
     "Portafolio de David - Estudiante de Ingenieria Informatica y Full Stack Developer. Proyectos, habilidades y contacto.",
+  keywords: [
+    "David",
+    "Full Stack Developer",
+    "Ingenieria Informatica",
+    "Portafolio",
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Desarrollador Web",
+  ],
+  authors: [{ name: "David" }],
+  creator: "David",
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    type: "website",
+    locale: "es_ES",
+    url: siteUrl,
+    title: "David | Full Stack Developer",
+    description:
+      "Estudiante de Ingenieria Informatica apasionado por el desarrollo Full Stack. Explora mis proyectos y habilidades.",
+    siteName: "David Dev Portfolio",
+    images: [
+      {
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "David - Full Stack Developer Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "David | Full Stack Developer",
+    description:
+      "Estudiante de Ingenieria Informatica apasionado por el desarrollo Full Stack.",
+    images: ["/og-image.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({

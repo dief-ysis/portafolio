@@ -2,7 +2,34 @@
 
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
+import { useCountUp } from "@/hooks/useCountUp";
 import { personalInfo } from "@/data/personal";
+import { skills } from "@/data/skills";
+
+function StatCard({
+  value,
+  suffix,
+  label,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+}) {
+  const { count, ref } = useCountUp(value);
+
+  return (
+    <div
+      ref={ref}
+      className="rounded-xl border border-border bg-card/50 p-4 text-center"
+    >
+      <p className="text-2xl font-bold text-primary">
+        {count}
+        {suffix}
+      </p>
+      <p className="text-sm text-muted">{label}</p>
+    </div>
+  );
+}
 
 export default function About() {
   return (
@@ -40,14 +67,12 @@ export default function About() {
                 y seguir creciendo como desarrollador.
               </p>
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="rounded-xl border border-border bg-card/50 p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">3+</p>
-                  <p className="text-sm text-muted">Años estudiando</p>
-                </div>
-                <div className="rounded-xl border border-border bg-card/50 p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">10+</p>
-                  <p className="text-sm text-muted">Tecnologias</p>
-                </div>
+                <StatCard value={3} suffix="+" label="Años estudiando" />
+                <StatCard
+                  value={skills.length}
+                  suffix="+"
+                  label="Tecnologias"
+                />
               </div>
             </div>
           </AnimatedContainer>

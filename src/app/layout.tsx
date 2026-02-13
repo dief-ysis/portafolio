@@ -4,6 +4,7 @@ import MotionProvider from "@/components/providers/MotionProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ScrollToTop from "@/components/layout/ScrollToTop";
+import ThemeProvider from "@/components/providers/ThemeProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -28,16 +29,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <MotionProvider>
-          <Header />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </MotionProvider>
+        <ThemeProvider>
+          <MotionProvider>
+            <Header />
+            {children}
+            <Footer />
+            <ScrollToTop />
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

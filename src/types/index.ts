@@ -23,3 +23,11 @@ export interface PersonalInfo {
   linkedin: string;
   bio: string;
 }
+
+export interface TimelineItem {
+  date: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  type: "education" | "work" | "project" | "course";
+}

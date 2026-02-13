@@ -5,6 +5,7 @@ import { m } from "motion/react";
 import { Project } from "@/types";
 import Button from "@/components/ui/Button";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
+import ImageGallery from "@/components/ui/ImageGallery";
 
 interface ProjectDetailProps {
   project: Project;
@@ -86,8 +87,18 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           </div>
         </AnimatedContainer>
 
+        {/* Gallery */}
+        {project.galleryImages && project.galleryImages.length > 0 && (
+          <AnimatedContainer delay={0.3}>
+            <div className="mb-8">
+              <h2 className="mb-4 text-xl font-bold">Capturas</h2>
+              <ImageGallery images={project.galleryImages} alt={project.title} />
+            </div>
+          </AnimatedContainer>
+        )}
+
         {/* Links */}
-        <AnimatedContainer delay={0.3}>
+        <AnimatedContainer delay={0.4}>
           <div className="flex flex-wrap gap-4">
             {project.githubUrl && (
               <Button href={project.githubUrl}>Ver codigo</Button>

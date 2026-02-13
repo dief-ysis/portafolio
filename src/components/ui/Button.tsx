@@ -7,6 +7,8 @@ interface ButtonProps {
   children: React.ReactNode;
   variant?: "primary" | "secondary" | "outline";
   href?: string;
+  download?: boolean;
+  target?: string;
   onClick?: () => void;
   className?: string;
 }
@@ -24,6 +26,8 @@ export default function Button({
   children,
   variant = "primary",
   href,
+  download,
+  target,
   onClick,
   className,
 }: ButtonProps) {
@@ -40,7 +44,14 @@ export default function Button({
 
   if (href) {
     return (
-      <m.a href={href} className={classes} {...motionProps}>
+      <m.a
+        href={href}
+        download={download}
+        target={target}
+        rel={target === "_blank" ? "noopener noreferrer" : undefined}
+        className={classes}
+        {...motionProps}
+      >
         {children}
       </m.a>
     );

@@ -64,6 +64,16 @@ export default function Hero() {
           <Button variant="outline" onClick={() => handleScroll("#contact")}>
             Contactame
           </Button>
+          {personalInfo.resumeUrl && (
+            <Button
+              variant="secondary"
+              href={personalInfo.resumeUrl}
+              download
+              target="_blank"
+            >
+              📄 Descargar CV
+            </Button>
+          )}
         </m.div>
       </div>
 

@@ -33,3 +33,12 @@ export interface TimelineItem {
   description: string;
   type: "education" | "work" | "project" | "course";
 }
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  quote: string;
+  avatarUrl?: string;
+}

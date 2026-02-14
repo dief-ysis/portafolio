@@ -1,17 +1,20 @@
 "use client";
 
-import Link from "next/link";
 import { m } from "motion/react";
+import { useTranslations } from "next-intl";
 import { Project } from "@/types";
 import Button from "@/components/ui/Button";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import ImageGallery from "@/components/ui/ImageGallery";
+import { Link } from "@/i18n/navigation";
 
 interface ProjectDetailProps {
   project: Project;
 }
 
 export default function ProjectDetail({ project }: ProjectDetailProps) {
+  const t = useTranslations("projectDetail");
+
   return (
     <main className="min-h-screen pt-24 pb-16 px-6">
       <div className="mx-auto max-w-4xl">
@@ -38,7 +41,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
                 d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
               />
             </svg>
-            Volver a proyectos
+            {t("back")}
           </Link>
         </m.div>
 
@@ -58,7 +61,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
           <div className="mb-8">
             {project.featured && (
               <span className="mb-3 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                Proyecto Destacado
+                {t("featuredProject")}
               </span>
             )}
             <h1 className="mb-4 text-4xl font-extrabold sm:text-5xl">
@@ -80,7 +83,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         {/* Description */}
         <AnimatedContainer delay={0.2}>
           <div className="mb-8">
-            <h2 className="mb-4 text-xl font-bold">Sobre el proyecto</h2>
+            <h2 className="mb-4 text-xl font-bold">{t("aboutProject")}</h2>
             <p className="text-lg leading-relaxed text-muted">
               {project.longDescription}
             </p>
@@ -91,7 +94,7 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         {project.galleryImages && project.galleryImages.length > 0 && (
           <AnimatedContainer delay={0.3}>
             <div className="mb-8">
-              <h2 className="mb-4 text-xl font-bold">Capturas</h2>
+              <h2 className="mb-4 text-xl font-bold">{t("gallery")}</h2>
               <ImageGallery images={project.galleryImages} alt={project.title} />
             </div>
           </AnimatedContainer>
@@ -101,11 +104,11 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         <AnimatedContainer delay={0.4}>
           <div className="flex flex-wrap gap-4">
             {project.githubUrl && (
-              <Button href={project.githubUrl}>Ver codigo</Button>
+              <Button href={project.githubUrl}>{t("viewCode")}</Button>
             )}
             {project.liveUrl && (
               <Button variant="outline" href={project.liveUrl}>
-                Ver demo
+                {t("viewDemo")}
               </Button>
             )}
           </div>

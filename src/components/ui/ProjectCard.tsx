@@ -1,7 +1,8 @@
 "use client";
 
 import { m } from "motion/react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Project } from "@/types";
 
 interface ProjectCardProps {
@@ -10,6 +11,8 @@ interface ProjectCardProps {
 }
 
 export default function ProjectCard({ project, index }: ProjectCardProps) {
+  const t = useTranslations("projects");
+
   return (
     <m.div
       initial={{ opacity: 0, y: 30 }}
@@ -29,7 +32,7 @@ export default function ProjectCard({ project, index }: ProjectCardProps) {
           </div>
           {project.featured && (
             <span className="absolute top-3 right-3 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">
-              Destacado
+              {t("featured")}
             </span>
           )}
         </div>

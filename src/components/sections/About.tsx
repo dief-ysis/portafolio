@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/components/ui/SectionHeading";
 import AnimatedContainer from "@/components/ui/AnimatedContainer";
 import { useCountUp } from "@/hooks/useCountUp";
@@ -32,16 +33,14 @@ function StatCard({
 }
 
 export default function About() {
+  const t = useTranslations("about");
+
   return (
     <section id="about" className="py-20 px-6">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading
-          title="Sobre mi"
-          subtitle="Conociendome un poco mas"
-        />
+        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
         <div className="grid gap-12 md:grid-cols-2 md:items-center">
-          {/* Profile image placeholder */}
           <AnimatedContainer direction="left">
             <div className="mx-auto aspect-square w-full max-w-sm overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 via-secondary/10 to-accent/20 p-1">
               <div className="flex h-full w-full items-center justify-center rounded-xl bg-card">
@@ -49,29 +48,22 @@ export default function About() {
                   <span className="text-6xl font-bold text-primary/20">
                     {personalInfo.name[0]}
                   </span>
-                  <p className="mt-2 text-sm text-muted">Tu foto aqui</p>
                 </div>
               </div>
             </div>
           </AnimatedContainer>
 
-          {/* Bio */}
           <AnimatedContainer direction="right" delay={0.2}>
             <div className="space-y-4">
               <p className="text-lg leading-relaxed text-muted">
                 {personalInfo.bio}
               </p>
-              <p className="text-lg leading-relaxed text-muted">
-                Actualmente en mi tercer año de Ingenieria Informatica, busco
-                oportunidades para aplicar mis conocimientos en proyectos reales
-                y seguir creciendo como desarrollador.
-              </p>
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <StatCard value={3} suffix="+" label="Años estudiando" />
+                <StatCard value={3} suffix="+" label={t("yearsStudying")} />
                 <StatCard
                   value={skills.length}
                   suffix="+"
-                  label="Tecnologias"
+                  label={t("technologies")}
                 />
               </div>
             </div>

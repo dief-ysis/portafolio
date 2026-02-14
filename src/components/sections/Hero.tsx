@@ -1,10 +1,13 @@
 "use client";
 
 import { m } from "motion/react";
+import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import { personalInfo } from "@/data/personal";
 
 export default function Hero() {
+  const t = useTranslations("hero");
+
   const handleScroll = (id: string) => {
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
   };
@@ -28,7 +31,7 @@ export default function Hero() {
           transition={{ duration: 0.5 }}
           className="mb-4 text-sm font-semibold tracking-widest text-primary uppercase"
         >
-          Bienvenido a mi portafolio
+          {t("welcome")}
         </m.p>
 
         <m.h1
@@ -37,7 +40,7 @@ export default function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mb-6 text-5xl font-extrabold leading-tight sm:text-6xl lg:text-7xl"
         >
-          Hola, soy{" "}
+          {t("greeting")}{" "}
           <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
             {personalInfo.name}
           </span>
@@ -59,10 +62,10 @@ export default function Hero() {
           className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center"
         >
           <Button onClick={() => handleScroll("#projects")}>
-            Ver mis proyectos
+            {t("viewProjects")}
           </Button>
           <Button variant="outline" onClick={() => handleScroll("#contact")}>
-            Contactame
+            {t("contactMe")}
           </Button>
           {personalInfo.resumeUrl && (
             <Button
@@ -71,7 +74,7 @@ export default function Hero() {
               download
               target="_blank"
             >
-              📄 Descargar CV
+              {t("downloadCV")}
             </Button>
           )}
         </m.div>
@@ -89,7 +92,7 @@ export default function Hero() {
           transition={{ repeat: Infinity, duration: 1.5 }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-xs text-muted">Scroll</span>
+          <span className="text-xs text-muted">{t("scroll")}</span>
           <div className="h-6 w-4 rounded-full border-2 border-muted p-0.5">
             <div className="h-1.5 w-1.5 rounded-full bg-muted" />
           </div>

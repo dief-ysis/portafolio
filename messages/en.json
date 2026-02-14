@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact"
+  },
+  "hero": {
+    "welcome": "Welcome to my portfolio",
+    "greeting": "Hi, I'm",
+    "viewProjects": "View my projects",
+    "contactMe": "Contact me",
+    "downloadCV": "Download CV",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "title": "About me",
+    "subtitle": "Getting to know me a little more",
+    "yearsStudying": "Years studying",
+    "technologies": "Technologies",
+    "projectsCompleted": "Projects completed"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Technologies and tools I work with",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "language": "Languages",
+    "database": "Databases",
+    "tool": "Tools"
+  },
+  "timeline": {
+    "title": "Experience",
+    "subtitle": "My academic and professional journey"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Some of the projects I've worked on",
+    "all": "All",
+    "noProjects": "No projects with this technology yet. More coming soon!",
+    "emptyState": "Projects coming soon. I'm working on it.",
+    "featured": "Featured"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What people say about working with me"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "I'm open to new opportunities and collaborations",
+    "name": "Name",
+    "namePlaceholder": "Your name",
+    "email": "Email",
+    "emailPlaceholder": "you@email.com",
+    "message": "Message",
+    "messagePlaceholder": "Write your message...",
+    "send": "Send message",
+    "sending": "Sending...",
+    "success": "Message sent!",
+    "error": "Error, try again",
+    "successMessage": "Thanks for your message! I'll reply soon.",
+    "myCode": "My code",
+    "myProfile": "My profile"
+  },
+  "projectDetail": {
+    "back": "Back to projects",
+    "featuredProject": "Featured Project",
+    "aboutProject": "About the project",
+    "gallery": "Screenshots",
+    "viewCode": "View code",
+    "viewDemo": "View demo"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articles about web development and my learnings",
+    "all": "All",
+    "noArticles": "No articles with this tag yet.",
+    "back": "Back to blog"
+  },
+  "footer": {
+    "builtWith": "Built with",
+    "by": "by"
+  }
+}

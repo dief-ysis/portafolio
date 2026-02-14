@@ -1,0 +1,87 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mi",
+    "skills": "Skills",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "blog": "Blog",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "welcome": "Bienvenido a mi portafolio",
+    "greeting": "Hola, soy",
+    "viewProjects": "Ver mis proyectos",
+    "contactMe": "Contactame",
+    "downloadCV": "Descargar CV",
+    "scroll": "Scroll"
+  },
+  "about": {
+    "title": "Sobre mi",
+    "subtitle": "Conociendome un poco mas",
+    "yearsStudying": "Anos estudiando",
+    "technologies": "Tecnologias",
+    "projectsCompleted": "Proyectos completados"
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "Tecnologias y herramientas con las que trabajo",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "language": "Lenguajes",
+    "database": "Bases de Datos",
+    "tool": "Herramientas"
+  },
+  "timeline": {
+    "title": "Experiencia",
+    "subtitle": "Mi trayectoria academica y profesional"
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Algunos de los proyectos en los que he trabajado",
+    "all": "Todos",
+    "noProjects": "No hay proyectos con esta tecnologia. Pronto agregare mas!",
+    "emptyState": "Pronto agregare proyectos aqui. Estoy trabajando en ello.",
+    "featured": "Destacado"
+  },
+  "testimonials": {
+    "title": "Testimonios",
+    "subtitle": "Lo que dicen quienes han trabajado conmigo"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Estoy abierto a nuevas oportunidades y colaboraciones",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "email": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "message": "Mensaje",
+    "messagePlaceholder": "Escribe tu mensaje...",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "success": "Mensaje enviado!",
+    "error": "Error, intenta de nuevo",
+    "successMessage": "Gracias por tu mensaje! Te respondere pronto.",
+    "myCode": "Mi codigo",
+    "myProfile": "Mi perfil"
+  },
+  "projectDetail": {
+    "back": "Volver a proyectos",
+    "featuredProject": "Proyecto Destacado",
+    "aboutProject": "Sobre el proyecto",
+    "gallery": "Capturas",
+    "viewCode": "Ver codigo",
+    "viewDemo": "Ver demo"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articulos sobre desarrollo web y mis aprendizajes",
+    "all": "Todos",
+    "noArticles": "No hay articulos con este tag todavia.",
+    "back": "Volver al blog"
+  },
+  "footer": {
+    "builtWith": "Hecho con",
+    "by": "por"
+  }
+}

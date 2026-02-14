@@ -1,40 +1,51 @@
 import type { MetadataRoute } from "next";
 import { projects } from "@/data/projects";
 import { getAllPosts } from "@/lib/mdx";
+import { routing } from "@/i18n/routing";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://david-dev.vercel.app";
 
-  const projectUrls = projects.map((project) => ({
-    url: `${siteUrl}/projects/${project.slug}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: 0.7,
-  }));
+  const locales = routing.locales;
+  const entries: MetadataRoute.Sitemap = [];
 
-  const blogPosts = getAllPosts();
-  const blogUrls = blogPosts.map((post) => ({
-    url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  for (const locale of locales) {
+    const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
 
-  return [
-    {
-      url: siteUrl,
+    entries.push({
+      url: `${siteUrl}${prefix}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
-    },
-    ...projectUrls,
-    {
-      url: `${siteUrl}/blog`,
+    });
+
+    entries.push({
+      url: `${siteUrl}${prefix}/blog`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.8,
-    },
-    ...blogUrls,
-  ];
+    });
+
+    for (const project of projects) {
+      entries.push({
+        url: `${siteUrl}${prefix}/projects/${project.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "monthly",
+        priority: 0.7,
+      });
+    }
+
+    const blogPosts = getAllPosts();
+    for (const post of blogPosts) {
+      entries.push({
+        url: `${siteUrl}${prefix}/blog/${post.slug}`,
+        lastModified: new Date(post.date),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
+  }
+
+  return entries;
 }

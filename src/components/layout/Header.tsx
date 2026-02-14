@@ -3,24 +3,27 @@
 import { useState, useEffect } from "react";
 import { m } from "motion/react";
 import { useTheme } from "next-themes";
-import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { personalInfo } from "@/data/personal";
-
-const navLinks = [
-  { label: "Inicio", href: "#hero" },
-  { label: "Sobre mi", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Experiencia", href: "#experience" },
-  { label: "Proyectos", href: "#projects" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contacto", href: "#contact" },
-];
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header() {
+  const t = useTranslations("nav");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+
+  const navLinks = [
+    { label: t("home"), href: "#hero" },
+    { label: t("about"), href: "#about" },
+    { label: t("skills"), href: "#skills" },
+    { label: t("experience"), href: "#experience" },
+    { label: t("projects"), href: "#projects" },
+    { label: t("blog"), href: "/blog" },
+    { label: t("contact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     setMounted(true);
@@ -74,7 +77,7 @@ export default function Header() {
         </a>
 
         {/* Desktop nav */}
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-6 md:flex">
           <ul className="flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
@@ -91,6 +94,8 @@ export default function Header() {
               </li>
             ))}
           </ul>
+
+          <LanguageSwitcher />
 
           {/* Theme toggle */}
           {mounted && (
@@ -132,8 +137,10 @@ export default function Header() {
           )}
         </div>
 
-        {/* Mobile: theme toggle + hamburger */}
+        {/* Mobile: language + theme toggle + hamburger */}
         <div className="flex items-center gap-3 md:hidden">
+          <LanguageSwitcher />
+
           {mounted && (
             <button
               onClick={toggleTheme}

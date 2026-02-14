@@ -1,16 +1,18 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { setRequestLocale } from "next-intl/server";
 import { projects } from "@/data/projects";
+import { routing } from "@/i18n/routing";
 import ProjectDetail from "./ProjectDetail";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
-export async function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+export function generateStaticParams() {
+  return routing.locales.flatMap((locale) =>
+    projects.map((project) => ({ locale, slug: project.slug }))
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -28,13 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${project.title} | David Dev`,
       description: project.description,
       type: "article",
-      images: ["/images/projects/og-image.png"],
     },
   };
 }
 
 export default async function ProjectPage({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   const project = projects.find((p) => p.slug === slug);
 
   if (!project) {

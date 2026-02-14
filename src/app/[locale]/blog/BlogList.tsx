@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { m } from "motion/react";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/components/ui/SectionHeading";
 import BlogPostCard from "@/components/blog/BlogPostCard";
 import { BlogPost } from "@/types";
@@ -11,27 +12,24 @@ interface BlogListProps {
 }
 
 export default function BlogList({ posts }: BlogListProps) {
-  const [activeTag, setActiveTag] = useState<string>("Todos");
+  const t = useTranslations("blog");
+  const [activeTag, setActiveTag] = useState<string>(t("all"));
 
   const allTags = useMemo(() => {
     const tagSet = new Set<string>();
     posts.forEach((post) => post.tags.forEach((tag) => tagSet.add(tag)));
-    return ["Todos", ...Array.from(tagSet).sort()];
-  }, [posts]);
+    return [t("all"), ...Array.from(tagSet).sort()];
+  }, [posts, t]);
 
   const filteredPosts = useMemo(() => {
-    if (activeTag === "Todos") return posts;
+    if (activeTag === t("all")) return posts;
     return posts.filter((post) => post.tags.includes(activeTag));
-  }, [posts, activeTag]);
+  }, [posts, activeTag, t]);
 
   return (
     <>
-      <SectionHeading
-        title="Blog"
-        subtitle="Articulos sobre desarrollo web y mis aprendizajes"
-      />
+      <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
-      {/* Tag filters */}
       {allTags.length > 1 && (
         <m.div
           initial={{ opacity: 0, y: 20 }}
@@ -55,7 +53,6 @@ export default function BlogList({ posts }: BlogListProps) {
         </m.div>
       )}
 
-      {/* Posts grid */}
       <div className="grid gap-6 sm:grid-cols-2">
         {filteredPosts.map((post, i) => (
           <BlogPostCard key={post.slug} post={post} index={i} />
@@ -63,9 +60,7 @@ export default function BlogList({ posts }: BlogListProps) {
       </div>
 
       {filteredPosts.length === 0 && (
-        <p className="mt-8 text-center text-muted">
-          No hay articulos con este tag todavia.
-        </p>
+        <p className="mt-8 text-center text-muted">{t("noArticles")}</p>
       )}
     </>
   );

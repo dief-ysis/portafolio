@@ -1,7 +1,8 @@
 "use client";
 
 import { m } from "motion/react";
-import Link from "next/link";
+import { useLocale } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { BlogPost } from "@/types";
 
 interface BlogPostCardProps {
@@ -10,11 +11,12 @@ interface BlogPostCardProps {
 }
 
 export default function BlogPostCard({ post, index }: BlogPostCardProps) {
-  const formattedDate = new Date(post.date).toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const locale = useLocale();
+
+  const formattedDate = new Date(post.date).toLocaleDateString(
+    locale === "es" ? "es-ES" : "en-US",
+    { year: "numeric", month: "long", day: "numeric" }
+  );
 
   return (
     <m.div

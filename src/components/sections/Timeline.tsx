@@ -1,17 +1,17 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/components/ui/SectionHeading";
 import TimelineCard from "@/components/ui/TimelineCard";
 import { experience } from "@/data/experience";
 
 export default function Timeline() {
+  const t = useTranslations("timeline");
+
   return (
     <section id="experience" className="py-20 px-6">
       <div className="mx-auto max-w-5xl">
-        <SectionHeading
-          title="Experiencia"
-          subtitle="Mi trayectoria academica y profesional"
-        />
+        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
         <div className="relative">
           {/* Vertical line */}

@@ -2,39 +2,35 @@
 
 import { useState, useMemo } from "react";
 import { m, AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ProjectCard from "@/components/ui/ProjectCard";
 import { projects } from "@/data/projects";
 
 export default function Projects() {
-  const [activeFilter, setActiveFilter] = useState<string>("Todos");
+  const t = useTranslations("projects");
+  const [activeFilter, setActiveFilter] = useState<string>(t("all"));
 
-  // Extraer tecnologías únicas de todos los proyectos
   const allTechnologies = useMemo(() => {
     const techSet = new Set<string>();
     projects.forEach((project) => {
       project.technologies.forEach((tech) => techSet.add(tech));
     });
-    return ["Todos", ...Array.from(techSet).sort()];
-  }, []);
+    return [t("all"), ...Array.from(techSet).sort()];
+  }, [t]);
 
-  // Filtrar proyectos según la tecnología seleccionada
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "Todos") return projects;
+    if (activeFilter === t("all")) return projects;
     return projects.filter((project) =>
       project.technologies.includes(activeFilter)
     );
-  }, [activeFilter]);
+  }, [activeFilter, t]);
 
   return (
     <section id="projects" className="py-20 px-6">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading
-          title="Proyectos"
-          subtitle="Algunos de los proyectos en los que he trabajado"
-        />
+        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
-        {/* Filtros de tecnología */}
         {projects.length > 0 && (
           <m.div
             initial={{ opacity: 0, y: 20 }}
@@ -59,7 +55,6 @@ export default function Projects() {
           </m.div>
         )}
 
-        {/* Grid de proyectos con AnimatePresence */}
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, i) => (
@@ -77,7 +72,6 @@ export default function Projects() {
           </AnimatePresence>
         </div>
 
-        {/* Mensaje si no hay proyectos que coincidan con el filtro */}
         <AnimatePresence>
           {filteredProjects.length === 0 && projects.length > 0 && (
             <m.p
@@ -86,15 +80,13 @@ export default function Projects() {
               exit={{ opacity: 0 }}
               className="mt-8 text-center text-muted"
             >
-              No hay proyectos con esta tecnologia. Pronto agregare mas!
+              {t("noProjects")}
             </m.p>
           )}
         </AnimatePresence>
 
         {projects.length === 0 && (
-          <p className="text-center text-muted">
-            Pronto agregare proyectos aqui. Estoy trabajando en ello.
-          </p>
+          <p className="text-center text-muted">{t("emptyState")}</p>
         )}
       </div>
     </section>

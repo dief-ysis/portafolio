@@ -2,11 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { m, AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 import SectionHeading from "@/components/ui/SectionHeading";
 import TestimonialCard from "@/components/ui/TestimonialCard";
 import { testimonials } from "@/data/testimonials";
 
 export default function Testimonials() {
+  const t = useTranslations("testimonials");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
@@ -23,10 +25,7 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="py-20 px-6">
       <div className="mx-auto max-w-3xl">
-        <SectionHeading
-          title="Testimonios"
-          subtitle="Lo que dicen quienes han trabajado conmigo"
-        />
+        <SectionHeading title={t("title")} subtitle={t("subtitle")} />
 
         <div
           onMouseEnter={() => setIsPaused(true)}

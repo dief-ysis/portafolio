@@ -2,16 +2,20 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
-import Link from "next/link";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import { getAllPosts, getPostBySlug } from "@/lib/mdx";
+import { routing } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }
 
-export async function generateStaticParams() {
+export function generateStaticParams() {
   const posts = getAllPosts();
-  return posts.map((post) => ({ slug: post.slug }));
+  return routing.locales.flatMap((locale) =>
+    posts.map((post) => ({ locale, slug: post.slug }))
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -35,18 +39,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = await params;
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+
   const post = getPostBySlug(slug);
+  const t = await getTranslations("blog");
 
   if (!post) {
     notFound();
   }
 
-  const formattedDate = new Date(post.date).toLocaleDateString("es-ES", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  const formattedDate = new Date(post.date).toLocaleDateString(
+    locale === "es" ? "es-ES" : "en-US",
+    { year: "numeric", month: "long", day: "numeric" }
+  );
 
   return (
     <main className="min-h-screen pt-24 pb-16 px-6">
@@ -69,7 +75,7 @@ export default async function BlogPostPage({ params }: Props) {
               d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
             />
           </svg>
-          Volver al blog
+          {t("back")}
         </Link>
 
         {/* Header */}
@@ -101,7 +107,10 @@ export default async function BlogPostPage({ params }: Props) {
             options={{
               mdxOptions: {
                 rehypePlugins: [
-                  [rehypePrettyCode, { theme: "one-dark-pro", keepBackground: true }],
+                  [
+                    rehypePrettyCode,
+                    { theme: "one-dark-pro", keepBackground: true },
+                  ],
                 ],
               },
             }}

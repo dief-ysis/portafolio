@@ -1,0 +1,51 @@
+---
+title: "Como construi mi portafolio con Next.js"
+date: "2026-02-13"
+description: "Un recorrido por las decisiones tecnicas y herramientas que use para crear mi portafolio personal desde cero."
+tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"]
+published: true
+---
+
+# Como construi mi portafolio con Next.js
+
+Cuando decidi crear mi portafolio, sabia que queria algo mas que una pagina estatica. Queria demostrar mis habilidades tecnicas mientras creaba algo funcional y visualmente atractivo.
+
+## Por que Next.js?
+
+Next.js fue mi eleccion principal por varias razones:
+
+- **App Router**: La nueva arquitectura de rutas es intuitiva y poderosa
+- **SSG**: Generacion estatica para rendimiento optimo
+- **TypeScript**: Type safety desde el primer dia
+- **Optimizacion de imagenes**: El componente `next/image` optimiza automaticamente
+
+## Stack tecnico
+
+El stack que elegi fue:
+
+```typescript
+const stack = {
+  framework: "Next.js 16",
+  language: "TypeScript",
+  styling: "Tailwind CSS v4",
+  animations: "Motion",
+  deployment: "Vercel",
+};
+```
+
+## Tailwind CSS v4
+
+Una de las cosas mas interesantes fue usar **Tailwind v4** con su configuracion CSS-first. En vez del clasico `tailwind.config.js`, todo se configura directamente en CSS:
+
+```css
+@import "tailwindcss";
+
+@theme inline {
+  --color-primary: #6366f1;
+  --color-secondary: #8b5cf6;
+}
+```
+
+## Leccion aprendida
+
+La leccion mas importante: **no esperes a tener todo perfecto para empezar**. Mi portafolio evoluciona constantemente, y cada iteracion es una oportunidad para aprender algo nuevo.

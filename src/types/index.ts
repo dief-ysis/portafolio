@@ -42,3 +42,14 @@ export interface Testimonial {
   quote: string;
   avatarUrl?: string;
 }
+
+export interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+  tags: string[];
+  published: boolean;
+  content: string;
+  readingTime: string;
+}

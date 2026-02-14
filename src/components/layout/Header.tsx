@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { m } from "motion/react";
 import { useTheme } from "next-themes";
+import { useRouter, usePathname } from "next/navigation";
 import { personalInfo } from "@/data/personal";
 
 const navLinks = [
@@ -11,6 +12,7 @@ const navLinks = [
   { label: "Skills", href: "#skills" },
   { label: "Experiencia", href: "#experience" },
   { label: "Proyectos", href: "#projects" },
+  { label: "Blog", href: "/blog" },
   { label: "Contacto", href: "#contact" },
 ];
 
@@ -27,10 +29,21 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const router = useRouter();
+  const pathname = usePathname();
+
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: "smooth" });
+    if (href.startsWith("#")) {
+      if (pathname !== "/") {
+        router.push(`/${href}`);
+      } else {
+        const el = document.querySelector(href);
+        el?.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      router.push(href);
+    }
   };
 
   const toggleTheme = () => {

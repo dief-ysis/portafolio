@@ -1,0 +1,47 @@
+---
+title: "Por que TypeScript cambio mi forma de programar"
+date: "2026-02-10"
+description: "Mi experiencia adoptando TypeScript y como mejoro la calidad de mi codigo significativamente."
+tags: ["TypeScript", "JavaScript", "Desarrollo Web"]
+published: true
+---
+
+# Por que TypeScript cambio mi forma de programar
+
+Cuando empece a programar, JavaScript era mi lenguaje principal. Funcionaba, pero a medida que mis proyectos crecian, empece a notar problemas: errores en runtime que podian haberse evitado, refactorizaciones peligrosas, y documentacion que siempre quedaba desactualizada.
+
+## El momento del cambio
+
+Todo cambio cuando empece a usar TypeScript en mis proyectos de la universidad. Al principio parecia mas trabajo, pero rapidamente note los beneficios.
+
+## Interfaces vs Types
+
+Una de las primeras cosas que aprendi fue la diferencia entre `interface` y `type`:
+
+```typescript
+// Interface - ideal para objetos y extensible
+interface User {
+  name: string;
+  email: string;
+}
+
+// Type - ideal para uniones y tipos complejos
+type Status = "idle" | "loading" | "success" | "error";
+```
+
+## Genericos
+
+Los genericos fueron un game-changer para escribir codigo reutilizable:
+
+```typescript
+function getFirst<T>(items: T[]): T | undefined {
+  return items[0];
+}
+
+const firstNumber = getFirst([1, 2, 3]); // number
+const firstString = getFirst(["a", "b"]); // string
+```
+
+## Mi consejo
+
+Si todavia no usas TypeScript, dale una oportunidad. La curva de aprendizaje es corta y los beneficios son enormes. Tu yo del futuro te lo agradecera.
